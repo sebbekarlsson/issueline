@@ -30,7 +30,7 @@ class IssueManager(object):
             + '.json'
 
         with open(data_path, 'w+') as _file:
-            _file.write(json.dumps(data))
+            _file.write(json.dumps(data, default=str))
         _file.close()
 
         return self.get_data(name)
@@ -38,13 +38,37 @@ class IssueManager(object):
     def get_issues(self):
         return [Issue(**issue) for issue in self.get_data('issues')]
 
+    def query(self, query, single=False):
+        issues = []
+
+        for issue in self.get_issues():
+            _issue = issue.export()
+
+            for k, v in query.items():
+                if k in _issue:
+                    if _issue[k] == v:
+                        if single:
+                            return issue
+                        else:
+                            issues.append(issue)
+
+        return issues
+
     def report_issue(self, kind, title, description, author):
         existing_data = self.get_data('issues')
-        existing_data.append(Issue(
+
+        issue = Issue(
             kind=kind,
             title=title,
             description=description,
             author=author
-        ).export())
+        )
+
+        if self.query({'id': issue.id}, True):
+            return False
+
+        existing_data.append(issue.export())
 
         self.write_data('issues', existing_data)
+
+        return issue
