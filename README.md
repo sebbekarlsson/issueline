@@ -47,3 +47,10 @@
 
 > It is recommended __not__ to gitignore the `.issueline` directory, it is very
 > neat to keep track on it using git.
+
+## Installing
+> To install `issueline`, clone down the repository and run:
+
+    $ python setup.py install
+
+> On some operating systems / platforms, you might have to use `sudo`.
