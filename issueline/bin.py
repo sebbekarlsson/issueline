@@ -3,6 +3,7 @@ import os
 import sys
 from issueline.IssueManager import IssueManager
 from issueline.utils import get_current_author
+from issueline.constants import STATUS_CLOSED
 
 
 parser = argparse.ArgumentParser()
@@ -51,6 +52,22 @@ def query_issue():
     print(issue.export() if issue else 'Could not find issue')
 
 
+def close_issue():
+    if len(sys.argv) == 2:
+        print('--id')
+        return
+
+    parser.add_argument('--id', type=str, help='ID of issue')
+
+    args = parser.parse_args()
+
+    manager = IssueManager(os.getcwd())
+
+    manager.update_issue(id=args.id, update={'status': STATUS_CLOSED})
+
+    print(args.id + ' was updated')
+
+
 def show_all_issues():
     manager = IssueManager(os.getcwd())
 
@@ -61,7 +78,8 @@ title={title}
 description={description}
 author={author}
 id={id}
-date={date}\n'''.format(**issue.export())
+date={date}
+status={status}\n'''.format(**issue.export())
         )
 
 
@@ -71,7 +89,8 @@ def run():
     commands = [
         'report',
         'query',
-        'all'
+        'all',
+        'close'
     ]
 
     if len(sys.argv) > 1:
@@ -88,3 +107,6 @@ def run():
 
     if command == commands[2]:
         return show_all_issues()
+
+    if command == commands[3]:
+        return close_issue()

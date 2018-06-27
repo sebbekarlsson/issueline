@@ -54,6 +54,18 @@ class IssueManager(object):
 
         return issues
 
+    def update_issue(self, id, update):
+        data = self.get_data('issues')
+
+        for i, issue in enumerate(data):
+            if issue['id'] == id:
+                for k, v in update.items():
+                    issue[k] = v
+
+                data[i] = issue
+
+        return self.write_data('issues', data)
+
     def report_issue(self, kind, title, description, author):
         existing_data = self.get_data('issues')
 

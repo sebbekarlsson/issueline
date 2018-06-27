@@ -1,5 +1,6 @@
 import base64
 import datetime
+from issueline.constants import STATUS_OPEN
 
 
 class Issue(object):
@@ -11,7 +12,8 @@ class Issue(object):
         description=None,
         author=None,
         id=None,
-        date=None
+        date=None,
+        status=STATUS_OPEN
     ):
         self.kind = kind
         self.title = title
@@ -24,6 +26,7 @@ class Issue(object):
             str(self.author)
         ) if not id else id
         self.date = datetime.datetime.now() if not date else date
+        self.status = status
 
     def export(self):
         return self.__dict__
