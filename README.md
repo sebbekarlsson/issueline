@@ -69,4 +69,7 @@
 
     $ python setup.py install
 
-> On some operating systems / platforms, you might have to use `sudo`.
+> On some operating systems / platforms, you might have to use `sudo`.  
+> You can also install it using pip:
+
+    $ pip install issueline
