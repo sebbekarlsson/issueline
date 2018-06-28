@@ -30,6 +30,7 @@
     > author=sebastiankarlsson
     > id=ZXJyb3JTb21ldGhpbmcgd3JvbmdzbyB0aGlzIGhhcHBlbmVkc2ViYXN0aWFua2FybHNzb24=
     > date=2018-06-27 15:24:39.404800
+    > status=0
 
     > kind=bug
     > title=Text changes color when clicked
@@ -37,8 +38,23 @@
     > author=sebastiankarlsson
     > id=YnVnVGV4dCBjaGFuZ2VzIGNvbG9yIHdoZW4gY2xpY2tlZEl0IHByb2JhYmx5IGhhcyBzb21ldGhpbmcgdG8gZG8gd2l0aCB0aGUgamF2YXNjcmlwdHNlYmFzdGlhbmthcmxzc29u
     > date=2018-06-27 15:29:10.015203
+    > status=0
 
     ...
+
+### Closing an issue
+> To close an issue:
+
+    $ issueline close --id <id>
+
+> The `status` on the issue will now be `1`
+
+### Open an issue
+> To open an issue:
+
+    $ issueline open --id <id>
+
+> The `status` on the issue will now be `0`
 
 ## Where are they stored?
 > By default they will be stored in a directory where executed, this directory
