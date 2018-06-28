@@ -3,7 +3,7 @@ import os
 import sys
 from issueline.IssueManager import IssueManager
 from issueline.utils import get_current_author
-from issueline.constants import STATUS_CLOSED
+from issueline.constants import STATUS_CLOSED, STATUS_OPEN
 
 
 parser = argparse.ArgumentParser()
@@ -65,7 +65,23 @@ def close_issue():
 
     manager.update_issue(id=args.id, update={'status': STATUS_CLOSED})
 
-    print(args.id + ' was updated')
+    print(args.id + ' was closed')
+
+
+def open_issue():
+    if len(sys.argv) == 2:
+        print('--id')
+        return
+
+    parser.add_argument('--id', type=str, help='ID of issue')
+
+    args = parser.parse_args()
+
+    manager = IssueManager(os.getcwd())
+
+    manager.update_issue(id=args.id, update={'status': STATUS_OPEN})
+
+    print(args.id + ' was opened')
 
 
 def show_all_issues():
@@ -90,7 +106,8 @@ def run():
         'report',
         'query',
         'all',
-        'close'
+        'close',
+        'open'
     ]
 
     if len(sys.argv) > 1:
@@ -110,3 +127,6 @@ def run():
 
     if command == commands[3]:
         return close_issue()
+
+    if command == commands[4]:
+        return open_issue()
