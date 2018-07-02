@@ -9,8 +9,8 @@ class IssueManager(object):
     def __init__(self, directory):
         self.directory = directory
 
-        if not os.path.isdir(ISSUE_DIRECTORY):
-            os.makedirs(ISSUE_DIRECTORY)
+        if not os.path.isdir(os.path.join(self.directory, ISSUE_DIRECTORY)):
+            os.makedirs(os.path.join(self.directory, ISSUE_DIRECTORY))
 
     def get_data(self, name):
         contents = None
